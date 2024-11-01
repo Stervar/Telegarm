@@ -32,6 +32,13 @@ async def cmd_back_home(message: Message) -> None:
     """
     await greet_user(message, is_new_user=False)
 
+
+@user_router.message(F.text == "ℹ️ О нас")
+async def about_us(message: Message):
+    kb = app_keyboard(user_id=message.from_user.id, first_name=message.from_user.first_name)
+    await message.answer(get_about_us_text(), reply_markup=kb)
+
+
 @user_router.message(F.text )
 async def cmd_back_home(message: Message) -> None:
     if 'постричьcя'in message.text.lower():
@@ -42,8 +49,3 @@ async def cmd_back_home(message: Message) -> None:
        await message.answer("""
     Я не понимаю
     """)
-
-@user_router.message(F.text == "ℹ️ О нас")
-async def about_us(message: Message):
-    kb = app_keyboard(user_id=message.from_user.id, first_name=message.from_user.first_name)
-    await message.answer(get_about_us_text(), reply_markup=kb)
